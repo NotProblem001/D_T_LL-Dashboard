@@ -3,6 +3,8 @@ import { jwtDecode } from 'jwt-decode';
 import { loginEmpresa } from '../services/api';
 import { AuthContext } from './authContextInstance';
 
+const ROLES_PERMITIDOS = ['EMPRESA', 'ADMIN'];
+
 function usuarioDesdeToken(token) {
     const claims = jwtDecode(token);
     return {
@@ -19,7 +21,7 @@ function usuarioInicial() {
 
     try {
         const decoded = usuarioDesdeToken(token);
-        if (decoded.rol !== 'EMPRESA' || jwtDecode(token).exp * 1000 <= Date.now()) {
+        if (!ROLES_PERMITIDOS.includes(decoded.rol) || jwtDecode(token).exp * 1000 <= Date.now()) {
             localStorage.removeItem('jwt_token');
             return null;
         }
@@ -36,7 +38,7 @@ export function AuthProvider({ children }) {
     const login = async (email, password) => {
         const token = await loginEmpresa(email, password);
         const decoded = usuarioDesdeToken(token);
-        if (decoded.rol !== 'EMPRESA') {
+        if (!ROLES_PERMITIDOS.includes(decoded.rol)) {
             localStorage.removeItem('jwt_token');
             throw new Error('Esta cuenta no tiene acceso al portal de empresas');
         }
@@ -52,8 +54,4 @@ export function AuthProvider({ children }) {
     const value = { user, login, logout, loading: false };
 
     return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+        <AuthContext.Provider val
