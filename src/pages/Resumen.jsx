@@ -24,7 +24,7 @@ export default function Resumen() {
 
             {isLoading ? (
                 <div className="text-gray-400">Cargando...</div>
-            ) : (
+            ) : !resumen ? null : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
                     <div className="card">
                         <Car className="text-blue-600 mb-2" size={24} />

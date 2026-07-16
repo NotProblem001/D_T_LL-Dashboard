@@ -48,6 +48,7 @@ export function AuthProvider({ children }) {
 
     const logout = () => {
         localStorage.removeItem('jwt_token');
+        localStorage.removeItem('empresa_seleccionada');
         setUser(null);
     };
 

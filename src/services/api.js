@@ -15,6 +15,11 @@ api.interceptors.request.use(
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        // ADMIN: agrega la empresa seleccionada en el Topbar a las consultas del portal.
+        const empresaId = localStorage.getItem('empresa_seleccionada');
+        if (empresaId && config.url?.startsWith('/api/v1/empresa/') && !config.url.endsWith('/empresas')) {
+            config.params = { ...(config.params || {}), empresaId };
+        }
         return config;
     },
     (error) => Promise.reject(error)
@@ -33,6 +38,11 @@ api.interceptors.response.use(
 export const loginEmpresa = async (email, password) => {
     const response = await api.post('/auth/token', { name: email, password });
     localStorage.setItem('jwt_token', response.data);
+    return response.data;
+};
+
+export const obtenerEmpresas = async () => {
+    const response = await api.get('/api/v1/empresa/empresas');
     return response.data;
 };
 
