@@ -27,14 +27,14 @@ export default function Resumen() {
             ) : !resumen ? null : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
                     <div className="card">
-                        <Car className="text-blue-600 mb-2" size={24} />
+                        <Car className="text-dtll-blue mb-2" size={24} />
                         <p className="text-2xl font-bold text-gray-900">{resumen.viajesEsteMes}</p>
                         <p className="text-sm text-gray-500">
                             Viajes en {MESES[resumen.mesFiscal - 1]} {resumen.anioFiscal}
                         </p>
                     </div>
                     <div className="card">
-                        <Users className="text-blue-600 mb-2" size={24} />
+                        <Users className="text-dtll-blue mb-2" size={24} />
                         <p className="text-2xl font-bold text-gray-900">{resumen.pasajerosActivos}</p>
                         <p className="text-sm text-gray-500">Pasajeros activos</p>
                     </div>

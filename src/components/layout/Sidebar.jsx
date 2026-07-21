@@ -15,7 +15,7 @@ export default function Sidebar() {
     return (
         <aside className="sidebar">
             <div className="sidebar-header">
-                <Truck size={22} className="text-blue-600" />
+                <Truck size={22} className="text-dtll-blue" />
                 <h2>Portal Empresa</h2>
             </div>
 
